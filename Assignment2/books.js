@@ -20,8 +20,9 @@ const router = express.Router();
 //     { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee" },
 //     { id: 3, title: "1984", author: "George Orwell" },
 // ];`
-router.get('/',(req, res)=> {``
-    res.send(books)
+router.get('/',async (req, res)=> {
+        const books = await Book.find();
+    res.send(books);
 })
 router.get('/api/books/:id',(req,res)=> {
     const result =Book.findById(req.params.id);
@@ -69,5 +70,36 @@ router.delete('/api/books/:id',(req,res)=> {
         res.status(200).send(`Book with Id =${req.params.id} is deleted`);
     }
 })
-
+router.post('/api/books/:id/borrow',async (req,res)=>{
+    const result =Book.findById(req.params.id);
+    if(!result){
+        res.status(404).send(`Book with ID = ${req.params.id} is not found`);
+        return;}
+    else{
+        if(result.available)
+        {
+            result.available=false;
+            res.status(200).send(`Book with ID = ${req.params.id} is borrowed`);
+        }
+        else
+            res.status(400).send(`Book with ID = ${req.params.id} is not available`);
+    }
+    result.save();
+})
+router.post('/api/books/:id/return',async (req,res)=>{
+    const result =Book.findById(req.params.id);
+    if(!result){
+        res.status(404).send(`Book with ID = ${req.params.id} is not found`);
+        return;}
+    else{
+        if(!result.available)
+        {
+            result.available=true;
+            res.status(200).send(`Book with ID = ${req.params.id} is returned`);
+        }
+        else
+            res.status(400).send(`Book with ID = ${req.params.id} is already available`);
+    }
+    result.save();
+})
 module.exports=router
