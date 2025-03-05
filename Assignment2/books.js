@@ -55,7 +55,7 @@ router.put('/books/:id',async(req,res)=>
     if(!req.body.title || !req.body.author)
         {res.status(400).send("Invalid data");
         return; }
-    const result =await Book.find(book => book.id ===parseInt(req.params.id));
+    const result =await Book.findOne({id: req.params.id});
         if(!result)
             res.status(404).send(`Book with ID = ${req.params.id} is not found`);
         else{
@@ -76,7 +76,7 @@ router.delete('/books/:id',async (req,res)=> {
     }
 })
 router.post('/books/:id/borrow',async (req,res)=>{
-    const result =await Book.findById(req.params.id);
+    const result =await Book.findOne({id: req.params.id});
     if(!result){
         res.status(404).send(`Book with ID = ${req.params.id} is not found`);
         return;}
@@ -92,7 +92,7 @@ router.post('/books/:id/borrow',async (req,res)=>{
     result.save();
 })
 router.post('/books/:id/return',async (req,res)=>{
-    const result =await Book.findById(req.params.id);
+    const result =await Book.findOne({id: req.params.id});
     if(!result){
         res.status(404).send(`Book with ID = ${req.params.id} is not found`);
         return;}
