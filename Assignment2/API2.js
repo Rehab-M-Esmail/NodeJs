@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const bookRouter = require("./books.js");
 app.use(express.json());
-//app.use('/',bookRouter);
 
 const Authorization= (req,res,next)=>{
     if(req.headers.authorization ==='Bearer ZEWAIL'){
