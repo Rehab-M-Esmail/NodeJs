@@ -44,6 +44,7 @@ router.post('/',async (req,res)=>{
     res.status(200).send(newPost);
 })
 
+
 router.put('/:id',async(req,res)=>
 {
     if(!req.body.content)
