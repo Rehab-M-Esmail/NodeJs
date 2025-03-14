@@ -21,7 +21,7 @@ const router = express.Router();
 //     { id: 1, title: " The Great Gatsby", author: "F. Scott Fitzgerald" },
 //     { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee" },
 //     { id: 3, title: "1984", author: "George Orwell" },
-// ];`
+// ];
 router.get('/books',async (req, res)=> {
         const books = await Book.find() ;
         res.send(CircularJSON.stringify(books));
@@ -66,12 +66,12 @@ router.put('/books/:id',async(req,res)=>
 })
 
 router.delete('/books/:id',async (req,res)=> {
-    const result =await Book.find(book => book.id ===parseInt(req.params.id));
+    const result =await Book.findOne({id: req.params.id});
     if(!result){
         res.status(404).send(`Book with ID = ${req.params.id} is not found`);
         return;}    
     else{
-        books.splice(Book.indexOf(result));
+        await Book.deleteOne({id: req.params.id});
         res.status(200).send(`Book with Id =${req.params.id} is deleted`);
     }
 })
