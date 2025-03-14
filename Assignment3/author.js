@@ -7,7 +7,6 @@ const pgPool = new Pool({
   port: 5432,
 });
 
-
 const express = require('express');
 const router = express.Router();
 router.get('/', async (req, res) => {
