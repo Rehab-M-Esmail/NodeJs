@@ -19,6 +19,7 @@ router.post('/tasks',async (req,res)=>
     const newTask = await Task.create({title:req.body.title,id:req.body.id, status:req.body.status})
     res.status(200).send(`Task${newTask} is added`);
 })
+
 router.put('/tasks/:id',async (req,res)=>
 {
     try    

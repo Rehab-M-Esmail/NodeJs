@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('./database'); // Import the connection
 
 const Task = sequelize.define(
-  'task',
+  'Task',
   {
     title: { type: DataTypes.STRING, allowNull: false },
     id: { type: DataTypes.INTEGER },
