@@ -51,16 +51,16 @@ router.delete('/tasks/:id',async (req,res)=>{
     await sequelize.close();
 }
 })
-// async function main() {
-//     // Authenticate connection
-//     await sequelize.authenticate();
-//     console.log('Database connected successfully.');
 
-//     // Sync database
-//     await sequelize.sync();
-//     console.log('Database schema synchronized.');
-
-// }
+const connection= async()=>
+{
+    await sequelize.authenticate();
+    console.log('Database connected successfully.');
+    await sequelize.sync();
+    console.log('Database schema synchronized.');
+}
+app.use(connection);
+app.use(express.json());
 app.use('/',router);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
