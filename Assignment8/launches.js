@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 class LaunchesService {
     constructor() {
@@ -8,19 +8,26 @@ class LaunchesService {
     async getLaunchesList() {
         try {
             const response = await axios.get(this.baseUrl);
-            console.log('Launches List:', response.data);
             return response.data;
         } catch (error) {
             throw new Error(`Failed to fetch Launches: ${error.message}`);
         }
     }
 }
-const launchesService = new LaunchesService();
-const launches = launchesService.getLaunchesList().then((data) => {
-    console.log('name:', data.results[0].name);
-    console.log('last_update:', data.results[0].last_updated);
-}
 
-).catch((error) => {
-    console.error('Error:', error.message);
-});
+(async () => {
+    const launchesService = new LaunchesService();
+    try {
+        const launches = await launchesService.getLaunchesList();
+        console.log("Launches List:");
+        launches.results.forEach((launch) => {
+            console.log('Name:', launch.name);
+            console.log('Last_Updated:', launch.last_updated);
+            console.log('slug:', launch.slug);
+            console.log('Status:', launch.status.name);
+            console.log("--------------------------");
+        });
+    } catch (error) {
+        console.error(error.message);
+    }
+})();
