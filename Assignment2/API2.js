@@ -11,7 +11,14 @@ const Authorization= (req,res,next)=>{
         res.status(401).send('Unauthorized');
     }
 }
-app.use(Authorization);
+function authorizeRole(role) {
+return (req, res, next) => {
+    if (req.user.role !== role) return res.sendStatus(403);
+
+    next();
+};
+}
+app.use(authorizeRole('admin'));
 app.use('/api',bookRouter);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

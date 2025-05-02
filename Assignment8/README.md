@@ -7,6 +7,7 @@ npm install
 ```
 
 To run the Nasa service
+Add your API Key in Nasa.js file
 
 ```
 node Nasa.js

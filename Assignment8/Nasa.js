@@ -2,7 +2,8 @@ const axios = require('axios');
 
 class NasaService {
     constructor() {
-        this.apiKey = 'eJ6eXNcRczZPU20Lj506aLZoHUeRJLNFX4oUtoJY';
+        this.apiKey = 'Your_NASA_API_Key'; // Replace with your actual NASA API key
+        // You can get a free API key from https://api.nasa.gov/
         this.baseUrl = `https://api.nasa.gov/planetary/apod?api_key=`;
     }
 

@@ -3,7 +3,7 @@ const pgPool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'blog',
-  password: 'password224',
+  password: 'postgres',
   port: 5432,
 });
 
@@ -73,4 +73,5 @@ router.delete('/:id', async (req, res) => {
     catch (err) {
         console.log("Error with connecting to database");}
 });
+
 module.exports = router;
